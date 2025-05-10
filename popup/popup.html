@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Summora Pro</title>
+  <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <img src="../assets/icons/icon48.png" alt="Summora Pro Logo">
+        <h1>Summora Pro</h1>
+      </div>
+      <div class="nav-icons">
+        <button class="nav-icon active" data-tab="summary" title="Summary">
+          <i class="fas fa-file-alt"></i>
+        </button>
+        <button class="nav-icon" data-tab="favorites" title="Favorites">
+          <i class="fas fa-heart"></i>
+        </button>
+        <button class="nav-icon" data-tab="history" title="History">
+          <i class="fas fa-history"></i>
+        </button>
+        <button class="nav-icon" data-tab="settings" title="Settings">
+          <i class="fas fa-cog"></i>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Summary Tab -->
+      <div class="tab-content active" id="summary-tab">
+        <div class="loading-container hidden">
+          <div class="spinner"></div>
+          <p>Summarizing article...</p>
+        </div>
+        
+        <div class="summary-container">
+          <div class="summary-header">
+            <h2 class="article-title">Article Title</h2>
+            <div class="summary-actions">
+              <button class="action-btn favorite-btn" title="Add to favorites">
+                <i class="far fa-heart"></i>
+              </button>
+              <button class="action-btn copy-btn" title="Copy to clipboard">
+                <i class="far fa-copy"></i>
+              </button>
+              <button class="action-btn toggle-view-btn" title="Toggle between full summary and key takeaways">
+                <i class="fas fa-list-ul"></i>
+              </button>
+            </div>
+          </div>
+          <div class="time-saved">
+            <i class="fas fa-clock"></i>
+            <span>Time saved: <strong>0 min</strong></span>
+          </div>
+          <div class="summary-content">
+            <p class="placeholder">Automatically generating summary...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Favorites Tab -->
+      <div class="tab-content" id="favorites-tab">
+        <div class="section-header">
+          <h2>Your Favorite Summaries</h2>
+        </div>
+        <div class="list-container">
+          <div class="empty-state hidden">
+            <i class="far fa-heart"></i>
+            <p>No favorites yet</p>
+          </div>
+          <ul class="summary-list favorites-list">
+            <!-- Favorites will be populated here -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- History Tab -->
+      <div class="tab-content" id="history-tab">
+        <div class="section-header">
+          <h2>Recently Summarized</h2>
+          <button class="clear-history-btn">
+            <i class="fas fa-trash-alt"></i>
+            Clear History
+          </button>
+        </div>
+        <div class="list-container">
+          <div class="empty-state hidden">
+            <i class="far fa-clock"></i>
+            <p>No history yet</p>
+          </div>
+          <ul class="summary-list history-list">
+            <!-- History will be populated here -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- Settings Tab -->
+      <div class="tab-content" id="settings-tab">
+        <div class="section-header">
+          <h2>API Settings</h2>
+        </div>
+        <div class="settings-container">
+          <div class="setting-group">
+            <label for="api-provider">AI Provider</label>
+            <select id="api-provider" class="setting-input">
+              <option value="anthropic">Anthropic</option>
+              <option value="openai">OpenAI</option>
+            </select>
+          </div>
+          
+          <div class="setting-group openai-settings">
+            <label for="openai-api-key">OpenAI API Key</label>
+            <input type="password" id="openai-api-key" class="setting-input" placeholder="Enter your OpenAI API key">
+            
+            <label for="openai-model">Model</label>
+            <select id="openai-model" class="setting-input">
+              <option value="gpt-4.1">GPT-4.1 (Latest)</option>
+              <option value="gpt-4o">GPT-4o</option>
+              <option value="gpt-4-turbo">GPT-4 Turbo</option>
+              <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+            </select>
+          </div>
+          
+          <div class="setting-group anthropic-settings hidden">
+            <label for="anthropic-api-key">Anthropic API Key</label>
+            <input type="password" id="anthropic-api-key" class="setting-input" placeholder="Enter your Anthropic API key">
+            
+            <label for="anthropic-model">Model</label>
+            <select id="anthropic-model" class="setting-input">
+              <option value="claude-3-7-sonnet-20250219">Claude 3.7 Sonnet (Latest)</option>
+              <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet v2</option>
+              <option value="claude-3-5-haiku-20241022">Claude 3.5 Haiku</option>
+              <option value="claude-3-opus-20240229">Claude 3 Opus</option>
+              <option value="claude-3-sonnet-20240229">Claude 3 Sonnet</option>
+              <option value="claude-3-haiku-20240307">Claude 3 Haiku</option>
+            </select>
+          </div>
+          
+          <div class="setting-group">
+            <label for="summary-length">Summary Length</label>
+            <select id="summary-length" class="setting-input">
+              <option value="short">Short</option>
+              <option value="medium" selected>Medium</option>
+              <option value="long">Long</option>
+            </select>
+          </div>
+          
+          <div class="setting-group">
+            <label for="summary-type">Summary Type</label>
+            <select id="summary-type" class="setting-input">
+              <option value="full">Full Summary</option>
+              <option value="takeaways">Key Takeaways Only</option>
+            </select>
+            <p class="setting-description">Choose between a traditional summary or just the key takeaways in bullet points.</p>
+          </div>
+          
+          <button class="save-settings-btn">Save Settings</button>
+          <div class="settings-status"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
