@@ -82,4 +82,4 @@ Icons and design elements created with care for a premium experience.
 
 ---
 
-For support or feedback, please [create an issue](https://github.com/yniijia/summora-pro/issues) on our GitHub repository.
+For support or feedback, please [create an issue](https://github.com/yniijia/summora-pro/issues) on the GitHub repository.
